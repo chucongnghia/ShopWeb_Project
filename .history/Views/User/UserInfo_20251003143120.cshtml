@@ -1,0 +1,52 @@
+@model ShopWeb_Project.Models.TKhachHang
+@{
+    ViewData["Title"] = "User Info";
+    Layout = "~/Views/Shared/_LayoutOgani.cshtml";
+}
+
+<section class="spad">
+    <div class="container">
+        <h3 style="margin-bottom:16px;">User Information</h3>
+        <div style="margin-bottom:12px;">
+            <strong>Balance:</strong> @ViewBag.Money
+        </div>
+        <form asp-action="UserInfo" asp-controller="User" method="post">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Full name</label>
+                        <input class="form-control" asp-for="TenKhachHang" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Birthday</label>
+                        <input class="form-control" asp-for="NgaySinh" type="date" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input class="form-control" asp-for="SoDienThoai" />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" asp-for="DiaChi" />
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea class="form-control" asp-for="GhiChu"></textarea>
+                    </div>
+                </div>
+            </div>
+            <button class="site-btn" type="submit">Save</button>
+        </form>
+    </div>
+    
+</section>
+
+
