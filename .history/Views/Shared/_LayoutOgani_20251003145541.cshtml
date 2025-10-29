@@ -1,0 +1,245 @@
+﻿@inject ShopWeb_Project.Repository.IloaiSpRepository LoaiSpRepo
+@inject ShopWeb_Project.Models.ShopWebDbContext Db
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ogani Template">
+    <meta name="keywords" content="Ogani, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cửa hàng tiện ích</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="../LayoutOgani/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="../LayoutOgani/css/style.css" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Humberger Begin -->
+    <div class="humberger__menu__overlay"></div>
+    <div class="humberger__menu__wrapper">
+        <div class="humberger__menu__logo">
+            <a href="#"><img src="../LayoutOgani/img/logo_1.jpg" alt=""></a>
+        </div>
+        
+        <div class="humberger__menu__widget">
+            <div class="header__top__right__auth">
+                @* <a href="#"><i class="fa fa-user"></i> Login</a> *@
+                <a asp-controller="Access" asp-action="Logout"><i class="fa fa-user"></i> Logout</a>
+            </div>
+        </div>
+        <nav class="humberger__menu__nav mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./shop-grid.html">Shop</a></li>
+                <li>
+                    <a href="#">Pages</a>
+                    <ul class="header__menu__dropdown">
+                        <li><a href="./shop-details.html">Shop Details</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Humberger End -->
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="header__top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="header__top__right">
+                            <div class="header__top__right__language">
+                                @if (Context.Session.GetString("UserName") != null)
+                                {
+                                    <div class="User__info">
+                                        <div>Options</div>
+                                        <span></span>
+                                        <ul>
+                                            <li><a asp-controller="User" asp-action="UserInfo">User info</a></li>
+                                            <li><a asp-controller="User" asp-action="TopUp">Top up</a></li>
+                                            <li><a href="#">More</a></li>
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                            <div class="header__top__right__auth">
+                                @* <a href="#"><i class="fa fa-user"></i> Login</a> *@
+                                @if (Context.Session.GetString("UserName") == null)
+                                {
+                                    <a asp-controller="Access" asp-action="Login"><i class="fa fa-user"></i> LOGIN</a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Access" asp-action="Logout"><i class="fa fa-user"></i> LOGOUT</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="header__logo">
+                        <a href="./index.html"><img src="../LayoutOgani/img/logo_1.jpg" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <nav class="header__menu">
+                        <ul>
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a href="./shop-grid.html">Shop</a></li>
+                            <li>
+                                <a href="#">Pages</a>
+                                <ul class="header__menu__dropdown">
+                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                    <li><a href="./checkout.html">Check Out</a></li>
+                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="./blog.html">Blog</a></li>
+                            <li><a href="./contact.html">Contact</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3">
+                    <div class="header__cart">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="humberger__open">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    <!-- Header Section End -->
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                @await Component.InvokeAsync("LoaiSpMenu")
+                <div class="col-lg-9">
+                    <div class="hero__search">
+                        <div class="hero__search__form">
+                            <form asp-controller="Home" asp-action="Index" method="get">
+                                
+                                <input type="text" name="search" value="@(Context.Request.Query["search"])" placeholder="What do you need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>
+                        <div class="hero__search__phone">
+                            <div class="hero__search__phone__icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="hero__search__phone__text">
+                                <h5>+65 11.188.888</h5>
+                                <span>support 24/7 time</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="displayProducts" class="row featured__filter">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    <!-- Categories Section Begin -->
+    
+    <!-- Categories Section End -->
+    <!-- Featured Section Begin -->
+   
+    <!-- Featured Section End -->
+    <!-- Blog Section Begin -->
+    
+    <!-- Blog Section End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <div class="footer__about__logo">
+                            <a href="./index.html"><img src="../LayoutOgani/img/logo_1.jpg" alt=""></a>
+                        </div>
+                        <ul>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
+                    <div class="footer__widget">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <div class="footer__widget">
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer__copyright">
+                        <div class="footer__copyright__text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
+                        </div>
+                        <div class="footer__copyright__payment"><img src="../LayoutOgani/img/payment-item.png" alt=""></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="../LayoutOgani/js/jquery-3.3.1.min.js"></script>
+    <script src="../LayoutOgani/js/bootstrap.min.js"></script>
+    <script src="../LayoutOgani/js/jquery.nice-select.min.js"></script>
+    <script src="../LayoutOgani/js/jquery-ui.min.js"></script>
+    <script src="../LayoutOgani/js/jquery.slicknav.js"></script>
+    <script src="../LayoutOgani/js/mixitup.min.js"></script>
+    <script src="../LayoutOgani/js/owl.carousel.min.js"></script>
+    <script src="../LayoutOgani/js/main.js"></script>
+
+
+
+
+
+</body>
+
+</html>

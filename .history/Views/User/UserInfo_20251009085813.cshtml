@@ -1,0 +1,127 @@
+@model ShopWeb_Project.Models.TKhachHang
+@{
+    ViewData["Title"] = "User Info";
+    Layout = "~/Views/Shared/_LayoutOgani.cshtml";
+}
+
+<section class="spad">
+    <div class="container">
+        <h3 style="margin-bottom:16px;">Thông tin khách hàng</h3>
+        
+        @if (!string.IsNullOrEmpty(TempData["Message"] as string))
+        {
+            <div class="alert alert-success" style="margin-bottom: 20px;">
+                @TempData["Message"]
+            </div>
+        }
+        
+        <form asp-action="UserInfo" asp-controller="User" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <!-- Thông tin cơ bản -->
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Mã khách hàng</label>
+                        <input class="form-control" asp-for="MaKhanhHang" readonly />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Tên đăng nhập</label>
+                        <input class="form-control" asp-for="Username" readonly />
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Tên khách hàng <span style="color: red;">*</span></label>
+                        <input class="form-control" asp-for="TenKhachHang" required />
+                        <span asp-validation-for="TenKhachHang" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Ngày sinh</label>
+                        <input class="form-control" asp-for="NgaySinh" type="date" />
+                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <input class="form-control" asp-for="SoDienThoai" placeholder="Nhập số điện thoại" />
+                        <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>Loại khách hàng</label>
+                        <select class="form-control" asp-for="LoaiKhachHang">
+                            <option value="">-- Chọn loại khách hàng --</option>
+                            <option value="1">Khách hàng thường</option>
+                            <option value="2">Khách hàng VIP</option>
+                            <option value="3">Khách hàng doanh nghiệp</option>
+                        </select>
+                        <span asp-validation-for="LoaiKhachHang" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <textarea class="form-control" asp-for="DiaChi" rows="3" placeholder="Nhập địa chỉ đầy đủ"></textarea>
+                        <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <!-- Ảnh đại diện -->
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Ảnh đại diện</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="file" class="form-control" name="avatarFile" accept="image/*" />
+                                <small class="form-text text-muted">Chọn ảnh đại diện (JPG, PNG, GIF)</small>
+                            </div>
+                            <div class="col-md-6">
+                                @if (!string.IsNullOrEmpty(Model.AnhDaiDien))
+                                {
+                                    <img src="@Model.AnhDaiDien" alt="Ảnh đại diện" style="max-width: 150px; max-height: 150px; border-radius: 5px;" />
+                                }
+                                else
+                                {
+                                    <div style="width: 150px; height: 150px; border: 2px dashed #ccc; display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                                        <span style="color: #999;">Chưa có ảnh</span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Ghi chú</label>
+                        <textarea class="form-control" asp-for="GhiChu" rows="4" placeholder="Nhập ghi chú (nếu có)"></textarea>
+                        <span asp-validation-for="GhiChu" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="site-btn" type="submit">
+                        <i class="fa fa-save"></i> Lưu thông tin
+                    </button>
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary" style="margin-left: 10px;">
+                        <i class="fa fa-arrow-left"></i> Quay lại
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+
